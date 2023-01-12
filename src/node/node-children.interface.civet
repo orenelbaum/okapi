@@ -1,0 +1,5 @@
+{ type AstNode } from ./node.type.civet
+
+export type NodeChildren = {
+	[childTypeOrChildrenGroupType: string]: AstNode[]
+}

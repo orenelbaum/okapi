@@ -1,0 +1,7 @@
+import { type IdentifierNode } from '../grammar/identifier/identifier-node.interface';
+import { type ExpressionNode } from '../grammar/expression/expression-node.type';
+
+
+export type AstNode =
+	IdentifierNode
+	| ExpressionNode

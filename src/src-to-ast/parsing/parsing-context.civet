@@ -1,0 +1,26 @@
+{ BlockNode } from ../../grammar/block/block-node.civet
+{ ExpressionNode } from ../../grammar/expression/expression-node.type.civet
+{ TokenizedLineWithIndentation } from ../tokenization/tokenized-line-with-indentation.interface.civet
+
+export parsingContext :=
+    blockStack: [] as (BlockNode | ExpressionNode)[]
+    tokenizedLines: [] as TokenizedLineWithIndentation[]
+    currentLineIndex: 0
+    currentColumnIndex: 0
+
+export blockStack := parsingContext.blockStack
+
+export getCurrentBlock := =>  parsingContext.blockStack[blockStack.length - 1]
+
+export getCurrentIndentationLevel := => blockStack.length - 1
+
+export getCurrentTokenizedLine := => parsingContext.tokenizedLines[parsingContext.currentLineIndex]
+
+export goToNextLine := =>
+    parsingContext.currentLineIndex += 1
+    parsingContext.currentColumnIndex = 0
+
+export getCurrentToken := () => getCurrentTokenizedLine()!.tokens[parsingContext.currentColumnIndex]
+
+export goToNextColumn := () => parsingContext.currentColumnIndex += 1
+

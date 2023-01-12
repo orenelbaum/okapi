@@ -1,0 +1,3 @@
+{ type NodePrototype } from ./node-prototype.base-interface.civet
+
+export type LeafNode = Omit<NodePrototype, "children">

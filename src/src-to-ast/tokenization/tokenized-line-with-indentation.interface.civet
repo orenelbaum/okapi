@@ -1,0 +1,6 @@
+{ type Token } from ./token.type.civet
+
+
+export interface TokenizedLineWithIndentation
+    indentationLevel: number
+    tokens: Token[]

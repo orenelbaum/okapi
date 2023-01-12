@@ -1,0 +1,12 @@
+
+export nodeTypes := [
+	'identifier'
+	'int'
+	'binary-expression'
+	'variable-declaration'
+	'call-expression'
+	'block'
+	'parentheses'
+] as const
+
+export type NodeType = typeof nodeTypes[number]

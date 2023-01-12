@@ -1,0 +1,15 @@
+{ getSrcLineIndentation } from ./get-src-line-indentation.civet
+{ tokenizeLine } from ./tokenize-line.civet
+{ type TokenizedLineWithIndentation } from ./tokenized-line-with-indentation.interface.civet
+
+
+splitLines := (src: string) =>
+	lineEnd := /\r\n|\n\r|\n|\r/g
+	src.replace(lineEnd, '\n').split '\n'
+
+export tokenizeCode := (code: string) =>
+	code
+		|> splitLines
+		|> &.map (srcLine): TokenizedLineWithIndentation =>
+			indentationLevel: getSrcLineIndentation srcLine
+			tokens: tokenizeLine srcLine

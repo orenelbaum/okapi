@@ -1,0 +1,7 @@
+{ type NodeChildren } from ./node-children.interface.civet
+{ type NodeType } from ./nodes.civet
+
+export type NodePrototype = {
+	nodeType: NodeType
+	children?: NodeChildren
+}

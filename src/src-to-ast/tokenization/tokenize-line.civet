@@ -1,0 +1,13 @@
+{ isNumericString } from ../../utils/is-numeric-string.util.civet
+{ isOperator } from ../../grammar/operator/operators.civet
+{ type Token } from ./token.type.civet
+
+
+export tokenizeLine := (srcLine: string) =>
+	wordsWithSpaces := srcLine.split /[ ,]+/
+	words := wordsWithSpaces.filter (word) => word !== ''
+	words.map (tokenString): Token =>
+		if isNumericString tokenString return { type: 'int', value: Number(tokenString) } as const
+		else if isOperator tokenString return { type: 'operator', operatorType: tokenString } as const
+		else return { type: 'identifier', name: tokenString } as const
+		// else throw (new Error('Illegal token.'))

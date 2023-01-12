@@ -1,0 +1,23 @@
+{ tokenizeCode } from ./src-to-ast/tokenization/tokenize-code.civet
+// { parseTokenizedLines } from ./src-to-ast/parsing/parse-tokenized-lines.civet
+// { transformAst } from ./transform-ast.civet
+// { tokenizeJsAst: tokenizeJsAst } from ./js-ast-to-code/ast-tokenization/tokenize-ast.civet
+// { generateCodeFromTokenizedLines } from ./js-ast-to-code/tokenized-lines-to-code/generate-code-from-tokenized-lines.civet
+
+
+'a = if + - 1'
+	|> tokenizeCode
+	|> JSON.stringify
+	|> console.log
+
+// const srcAst = parseTokenizedLines(tokenizedLinesWithIndentation)
+// // console.log({ srcAst: JSON.stringify(srcAst) })
+
+// const jsAst = transformsrcAstToJsAst({ srcAst })
+// // console.log({ jsAst: JSON.stringify(jsAst) })
+
+// const jsTokenizedLines = tokenizeAst({ jsAst })
+// // console.log({ jsTokenizedLines: JSON.stringify(jsTokenizedLines) })
+
+// const jsCode = generateCodeFromTokenizedLines({ tokenizedLines: jsTokenizedLines })
+// console.log({ jsCode });

@@ -1,0 +1,14 @@
+{ ExpressionNode } from ../expression/expression-node.type.civet
+{ NodeType } from ../../node/node-type.enum.civet
+{ NodePrototype } from ../../node/node-prototype.base-interface.civet
+
+// export interface BlockNode extends NodePrototype {
+// 	nodeType: NodeType.block
+// 	children: {
+// 		body: ExpressionNode[]
+// 	}
+// }
+
+export createBlockNode := ({ body }: BlockNode["children"]) =>
+	nodeType: NodeType.block
+	children: { body: body || [] }

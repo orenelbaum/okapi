@@ -1,0 +1,22 @@
+{ isWhitespace } from ../../utils/is-white-space.util.civet
+
+
+NUMBER_OF_SPACES_PER_TAB := 2
+
+export getSrcLineIndentation := (srcLine: string) =>
+	pos .= 0
+	indentation .= 0
+	currentChar := => srcLine[pos]!
+
+	while isWhitespace currentChar()
+		if currentChar() === '\t'
+			pos++
+			indentation++
+		
+		else if srcLine.slice(pos, pos + NUMBER_OF_SPACES_PER_TAB) === ' '.repeat(NUMBER_OF_SPACES_PER_TAB)
+			pos += NUMBER_OF_SPACES_PER_TAB
+			indentation++
+
+		else throw Error `Illegal line indentation in line "${srcLine}"`
+
+	indentation

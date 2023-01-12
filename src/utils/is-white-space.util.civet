@@ -1,0 +1,2 @@
+
+export isWhitespace :=  (character: string) => '\t'.includes character

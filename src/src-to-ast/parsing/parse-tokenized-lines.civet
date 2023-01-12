@@ -1,0 +1,11 @@
+{ parsingContext } from ./parsing-context.civet
+{ readBlock } from ../../grammar/block/read-block.civet
+{ type TokenizedLineWithIndentation } from ../tokenization/tokenized-line-with-indentation.interface.civet
+
+
+export parseTokenizedLines = (tokenizedLines: TokenizedLineWithIndentation[]) =>
+	if tokenizedLines.length === 0
+		throw new Error "Invalid argument 'tokenizedLines', recieved an empty array, expected a non-empty array."
+
+	parsingContext.tokenizedLines = tokenizedLines
+	readBlock()
