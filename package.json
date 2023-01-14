@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "build": "node ./build.js",
-    "dev": "node ./build.js && node ./dist/index.js | prettyjson"
+    "dev": "node ./build.js && node ./dist/index.js",
+    "dev-json": "node ./build.js && node ./dist/index.js | prettyjson"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@danielx/civet": "^0.5.36",
-    "@types/prettyjson": "^0.0.30",
     "esbuild": "^0.16.17",
     "prettyjson": "^1.2.5"
   }
