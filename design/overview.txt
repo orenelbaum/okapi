@@ -1,0 +1,214 @@
+# Changed from Civet:
+
+- Strict indentation
+
+- Symbols
+  ==    | ===
+  ~=    | ==
+  &     | &&
+  |     | ||
+
+- Variable declaration
+  x = 1               | const x = 1
+  x := 1              | let x = 1
+
+- Variable assignment:
+  x .= 1              | x = 1
+  x.b = 1             | x.b = 1
+
+- No parens arrow functions
+  x => x + 1          | x => x + 1
+
+- `x??` instead of `x?` for `x != null`
+
+
+
+# Added features that are not in Civet:
+
+- Symbols:
+  ~     | undefined
+  ~~    | null
+  ^     | false
+  ^^    | true
+
+- Ternaries don't need the false case, can be used instead of `if`
+  x ? f()           | if (x) f()
+
+- `?~`, `?~~`, `?^`, `?^^` operators for returning if a value is falsey, can be used inline
+  x?~              | if (!x) return undefined
+  x?^              | if (!x) return false
+  if (x?^) f(x)    | if (!x) return false; f(x)
+
+- `??~`, `??~~`, `??^`, `??^^` operators for returning if a value is nullish
+  x??~             | if (x == null) return undefined
+
+- `<<` instead of `return` and `export`. If no name is provided it will be a default export.
+
+- Ternaries can return values
+
+- Function declaration shorthand
+  f x = x + 1                         | const f = x => x + 1
+  f x: number, y: number = x + y
+  f x := x + 1
+  f x .= x + 2
+
+- Block expressions
+  x =
+    y = x
+    y + 1
+
+- Implicit export of last expression in file unless it's a function declaration
+
+- `>` instead of non-inline `then`, `:` instead of non-inline `else`
+  if
+    x > y
+  >
+    x
+  :
+    y
+
+- `>` instead of non inline closing paren in `for`
+  for
+    x of y
+  >
+    z
+
+- `>>` instead of inline `then`, `>:` instead of inline `else`
+  if x > y >> x >: y
+
+- `>>` instead of inline closing paren in `for`
+  for x of y >> z
+
+- `:>` operator for assigning param less functions to variables
+  f > x + 1          | const f = () => x + 1
+
+- Pipe operator placeholder (probably unified with partial application)
+  f x |> % + 1        | f(x) + 1
+
+- Expanded binary operators `&*`, `|*`, `+*`, `-*`, `=*`, `,*`, etc. (might be limited to `&*` and `|*`)
+  x == y |* z         | x == y || x == z
+  f x +* y            | f x + f y
+  f x =* y            | f x == f y
+  f g x ,* y          | f(g(x), g(y))
+
+- `fn` keyword for function declaration
+
+- Literals don't require commas
+  [1 2 3]             | [1, 2, 3]
+
+- Nullable type shorthand (syntax may change)
+  x: number?          |  x: number | null
+
+- Typed object literals and parameter destructuring
+  x ~ number: 1, y ~ number: 2     | { x: 1, y: 2 } as { x: number, y: number }
+
+- Nested comments
+
+- Code first JSX / Echo JSX
+
+- Pattern matching
+
+
+## Probably will be added:
+
+- `!` instead of `!=`
+
+- `with` operator with placholders, can be also written as `->` 
+  with x.y
+    %.a = %.b + 1
+    for item in % >> item + 1
+
+  with x = a.b.c
+    ...
+    // reference `x` here either as `x` or `%`
+  
+  x = a.b.c ->
+    ...
+
+- Implicit return for mid function if statements and ternary expressions:
+  if x >> y         | if(x) << y
+  if x >> y()       | if(x) y()
+  x ? y : z         | << x ? y : z
+  x ? y() : z()     | x ? y() : z() 
+  x ? y : z()       | x ? << y : z() 
+
+- Partial application
+  f(%, 1)              | x => f(x, 1)
+  f(%, 1, %, 2)        | (x, y) => f(x, 1, y, 2)
+
+- Support for reactivity syntax
+  $x := 1             | const $x = createSignal(1)
+  console.log($x)     | console.log($x)
+  console.log(x)      | console.log($x[0]())
+  $x .= 2             | $x[1](1)
+
+- Type system improvements such as `int` type
+
+- Member groups (very WIP)
+  a.
+    b = 1
+    c = 2
+  // ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
+  a.b = 1
+  a.c = 2
+
+  a.(b =* c)         | a.b = a.c
+  [a.(b, c)]         | [a.b, a.c]
+
+
+## Maybe will be added:
+
+- Variable shadowing
+
+- Compile time const with `::` operator + arbitrary compile time code execution
+
+- Function composition operator
+
+- Object slices
+  x{ a, b }             | a: x.a, b: x.b
+  x{ a, b } = y         | x.a = y.a, x.b = y.b
+
+- Piping expansion and unification
+  x
+    |> f, g
+    |> h(%, %, y)
+  // ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
+  h(f(x), g(x), y)
+
+- Branch pipe operator
+  x
+    |> f
+    ||> g
+    ||> h
+  // ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
+  g(f(x)), h(f(x))
+
+- Cascade operator (probably not)
+  a = [2 7 1 8]
+    ..push 3
+    ..shift()
+    ..sort()
+  //  ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ 
+  a = [2 7 1 8]
+  a.push 3
+  a.shift()
+  a.sort()
+
+
+
+
+# Removed from Civet:
+
+- `->` (and `-->`), `::`, `@`, `<` (extends) operators
+
+- Humanize syntax
+
+- Anything related to classes, OOP, prototypes and `this`
+
+- Autovar, autolet
+
+- Html comments in jsx
+
+- Coffeescript compat
+
+- Javascript compat: `const`, `var`, `function` (maybe)

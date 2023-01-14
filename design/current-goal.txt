@@ -1,0 +1,31 @@
+# Current Goal
+
+- Tokens: identifiers, integers, operators, keywords
+
+- Operators: `=`, `+`, `-`, `/`, `*`
+
+- Keywords: `if`
+
+- Variable declarations
+
+- Arithmetic
+
+- If statements
+
+- Formatting:
+	x =
+		1 + 2
+
+	x =
+		1 + 2
+		- 3 + 4
+	//	↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
+	const x = 1 + 2 - 3 + 4
+
+	x =
+		1 + 2
+		* 3 + 4
+	//	↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
+	const x = (1 + 2) * (3 + 4)
+
+	
