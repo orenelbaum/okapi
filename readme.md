@@ -10,6 +10,6 @@ It's currently in a very early stage, work on the compiler just started, and the
 
 ## This Codebase
 
-The codebase contains the compiler which is written in Civet. Since I only just started working on the compiler, I'm building it on top of the code for another compiler I started building a while ago. You'll see both Civet and TS files, TS files are from the older compiler and I put them here for reference so it's easy to repurpose the older compiler as a whole system. This should be gone soon and the codebase will not contain any old code.
+The codebase contains the compiler which is written in Civet and the design of the language. Since I only just started working on the compiler, I'm building it on top of the code for another compiler I started building a while ago. You'll see both Civet and TS files, TS files are from the older compiler and I put them here for reference so it's easy to repurpose the older compiler as a whole system. This should be gone soon and the codebase will not contain any old code.
 
 Use `npm run dev` to build and run the compiler, and `npm run dev-json` if you're outputting JSON for pretty printing the JSON.
