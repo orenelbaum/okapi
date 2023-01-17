@@ -1,0 +1,11 @@
+
+export operators := [
+	'='
+	'+'
+	'-'
+] as const
+
+export type Operator = typeof operators[number]
+
+export isOperator := (value: string): value is Operator =>
+	operators.includes(value as Operator)

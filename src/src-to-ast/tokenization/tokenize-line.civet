@@ -1,13 +1,56 @@
-{ isNumericString } from ../../utils/is-numeric-string.util.civet
-{ isOperator } from ../../grammar/operator/operators.civet
+{ isOperator } from ../../grammar/operator.civet
+{ isKeyword } from ../../grammar/keyword.civet
+{
+	isSingleSpace, isDigit, isNonIdentSpecialSymbol, isLetter, isLegalIdentStart,
+	isLegalIdentChar
+} from ../../utils.civet
 { type Token } from ./token.type.civet
 
 
 export tokenizeLine := (srcLine: string) =>
-	wordsWithSpaces := srcLine.split /[ ,]+/
-	words := wordsWithSpaces.filter (word) => word !== ''
-	words.map (tokenString): Token =>
-		if isNumericString tokenString return { type: 'int', value: Number(tokenString) } as const
-		else if isOperator tokenString return { type: 'operator', operatorType: tokenString } as const
-		else return { type: 'identifier', name: tokenString } as const
-		// else throw (new Error('Illegal token.'))
+	srcLine = srcLine.trim()
+	tokens: Token[] := []
+	pos .= 0
+
+	while pos < srcLine.length
+		startPos := pos
+
+		// Whitespace
+		if isSingleSpace srcLine[pos]
+			while isSingleSpace srcLine[++pos];
+			if (pos - startPos > 1) tokens.push {
+				type: 'multispace', spaceCount: pos - startPos
+			} as const
+
+		// Numbers
+		else if isDigit srcLine[pos]
+			while isDigit srcLine[++pos];
+			if (isLegalIdentStart(srcLine[pos])) throw new Error (
+				'Illegal token: a number cannot be followed by a letter without a space in between.'
+			)
+			tokens.push {
+				type: 'int', value: Number srcLine[startPos .. pos - 1]
+			} as const
+
+		// Identifiers and keywords
+		else if isLegalIdentStart(srcLine[pos])
+			containsSymbols .= false
+			while isLegalIdentChar(srcLine[++pos])
+				containsSymbols ||= isLetter srcLine[pos]
+			token := srcLine[startPos .. pos - 1]
+			if !containsSymbols && isKeyword token
+				tokens.push { type: 'keyword', keyword: token } as const
+			else tokens.push {
+				type: 'identifier', name: srcLine[startPos .. pos - 1]
+			} as const
+
+		// Operators
+		else if isNonIdentSpecialSymbol(srcLine[pos])
+			while isNonIdentSpecialSymbol(srcLine[++pos]);
+			operator := srcLine[startPos .. pos - 1]
+			if (!isOperator operator) throw new Error 'Illegal token'
+			tokens.push { type: 'operator', operator } as const
+
+		else throw new Error 'Illegal token.'
+
+	tokens

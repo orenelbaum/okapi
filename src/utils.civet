@@ -1,0 +1,44 @@
+
+export SINGLE_SPACE := ' '
+
+export isSingleSpace := (char: string | undefined) => char is SINGLE_SPACE
+
+export isWhitespace :=
+	(char: string | undefined) => isSingleSpace(char) || char is '\t'
+
+export isNonIdentSpecialSymbol := (char: string | undefined) =>
+	/[-!%^&*()+|~=`{}\[\]:";'<>?,.\/]/.test(char || '')
+
+export isDigit := (char: string | undefined) => /[0-9]/.test char || ''
+
+export isLetter := (char: string | undefined) => /[a-zA-Z]/.test char || ''
+
+export isLegalIdentStart :=
+	(char: string | undefined) => isLetter(char) || char && '_$'.includes char || ''
+
+export isLegalIdentChar :=
+	(char: string | undefined) => isLegalIdentStart(char) || isDigit char || ''
+
+
+// export isNumericString := (str: string) =>
+// 	if typeof str != 'string' return false
+
+// 	// Use type coercion to parse the entirety of the string (`parseFloat` alone does not do this)...
+// 	!isNaN(str as unknown as number)
+// 	// ...and ensure strings of whitespace fail
+// 	&& !isNaN parseFloat str
+
+
+// import { parsingContext } from '../tygon-code-to-ast/parsing/parsing-context';
+// import { getCurrentIndentationLevel } from '../js-ast-to-code/ast-tokenization/tokenization-context';
+
+// export const logPosition = () => console.log({
+//     line: parsingContext.currentLineIndex,
+//     column: parsingContext.currentColumnIndex,
+//     indentationLevel: getCurrentIndentationLevel()
+// })
+
+// export const log = (...thing: any) => {
+//     logPosition()
+//     console.log("=> ", ...thing)
+// }

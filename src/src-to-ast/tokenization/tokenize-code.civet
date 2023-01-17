@@ -1,6 +1,7 @@
 { getSrcLineIndentation } from ./get-src-line-indentation.civet
 { tokenizeLine } from ./tokenize-line.civet
-{ type TokenizedLineWithIndentation } from ./tokenized-line-with-indentation.interface.civet
+{ type TokenizedLineWithIndentation }
+	from ./tokenized-line-with-indentation.interface.civet
 
 
 splitLines := (src: string) =>
@@ -10,6 +11,8 @@ splitLines := (src: string) =>
 export tokenizeCode := (code: string) =>
 	code
 		|> splitLines
-		|> &.map (srcLine): TokenizedLineWithIndentation =>
-			indentationLevel: getSrcLineIndentation srcLine
-			tokens: tokenizeLine srcLine
+		|> &.map(
+			(srcLine): TokenizedLineWithIndentation =>
+				indentationLevel: getSrcLineIndentation srcLine
+				tokens: tokenizeLine srcLine
+		)

@@ -1,0 +1,9 @@
+
+export keywords := [
+	'if'
+] as const
+
+export type Keyword = typeof keywords[number]
+
+export isKeyword := (value: string): value is Keyword =>
+	keywords.includes value as Keyword

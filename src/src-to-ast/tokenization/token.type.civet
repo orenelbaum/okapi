@@ -1,27 +1,11 @@
-{ type Operator } from '../../grammar/operator/operators.civet'
+{ type Operator } from '../../grammar/operator.civet'
+{ type Keyword } from '../../grammar/keyword.civet'
 
-type TokenBase = {
-  type: 'int' | 'operator' | 'identifier' | 'paren'
-}
 
-export type ParenToken = TokenBase & {
-  type: 'paren'
-  openingOrClosing: 'opening' | 'closing'
-}
-
-export type IntToken = TokenBase & {
-  type: 'int'
-  value: number
-}
-
-export type OperatorToken = TokenBase & {
-  type: 'operator'
-  operatorType: Operator
-}
-
-export type IdentifierToken = TokenBase & {
-  type: 'identifier'
-  name: string
-}
-
-export type Token = ParenToken | IntToken | OperatorToken | IdentifierToken
+export type Token =
+  { type: 'multispace', spaceCount: number }
+  | { type: 'paren', openingOrClosing: 'opening' | 'closing'}
+  | { type: 'operator', operator: Operator }
+  | { type: 'keyword', keyword: Keyword }
+  | { type: 'int', value: number }
+  | { type: 'identifier' ,name: string }
